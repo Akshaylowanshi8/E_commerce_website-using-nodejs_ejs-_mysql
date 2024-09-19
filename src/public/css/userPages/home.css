@@ -1,0 +1,160 @@
+
+body {
+    font-family: Arial, sans-serif;
+  }
+
+  .product-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: center;
+    gap: 30px;
+    width: auto;
+    margin-top: 80px;
+
+  }
+
+  .product-card {
+    height: fit-content;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    width: 400px;
+    min-height: 440px;
+    /* height: 500px; */
+  }
+
+  .product-card h3 {
+    font-size: 1.2em;
+    margin: 10px 0;
+  }
+
+  .product-card p {
+    font-size: 0.9em;
+    color: #555;
+  }
+
+  .product-card .price {
+    font-weight: bold;
+    font-size: larger;
+  }
+
+  .product-card form {
+    margin-top: 10px;
+  }
+
+  .productImg-card {
+    height: 300px;
+    width: 100%;
+    border-radius: 8px;
+
+  }
+
+  .productImg-card img {
+    width: 100%;
+    height: 100%;
+
+
+    object-fit: cover;
+  }
+
+
+  .setButton {
+    display: flex;
+    justify-content: space-between;
+    
+  }
+
+  /* General styles for the pagination container */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+/* Style for each pagination link */
+.pagination a {
+  display: inline-block;
+  padding: 10px 15px;
+  margin: 0 5px;
+  text-decoration: none;
+  color: #007bff;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+/* Hover effect for pagination links */
+.pagination a:hover {
+  background-color: #e2e6ea;
+  color: #0056b3;
+}
+
+/* Style for the current page link */
+.pagination .current {
+  color: #ffffff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+/* Optional: disable link if it's not active */
+.pagination .disabled {
+  color: #6c757d;
+  pointer-events: none;
+}
+a:link,a:visited,a:hover,a:active{
+  text-decoration: none;
+}
+
+.btn-primary{
+  background-color: #04AA6D; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+} 
+    .alert-custom {
+        position: relative;
+        padding: 15px;
+        margin: 5px auto;
+        border-radius: 5px;
+        color: #fff;
+        width: 30%;
+        font-size: 16px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 30000;
+    }
+
+    .alert-custom.success {
+        background-color: #28a745; /* Green for success */
+    }
+
+    .alert-custom.error {
+        background-color: #dc3545; /* Red for error */
+    }
+
+    .alert-custom.info {
+        background-color: #17a2b8; /* Blue for info */
+    }
+
+    .close-btn {
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 0;
+        margin: 0;
+        line-height: 1;
+    }
+
+    .close-btn:hover {
+        color: #ddd;
+    }

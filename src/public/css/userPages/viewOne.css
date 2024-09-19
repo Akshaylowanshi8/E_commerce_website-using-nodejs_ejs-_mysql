@@ -1,0 +1,120 @@
+#nav{
+
+    z-index: 30;
+   position: sticky;
+   top: 0;
+  display: flex;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+  }
+
+  .product-container1 {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    width: auto;
+    margin-top:  30px;
+    text-align: start;
+    padding-top: 30px;
+    padding: 60px;
+  }
+
+  .product-card1 {
+    display: flex;
+    justify-content: center;
+    height: fit-content;
+    border-radius: 8px;
+    padding: 10px;
+    width: 90%
+    /* height: 500px; */
+  }
+
+  .product-card1 h3 {
+    padding: 10px;
+    font-size: 1.6em;
+    /* margin: 10px 0; */
+  }
+
+  .product-card1 p {
+    padding: 10px;
+    font-size: 20px;
+    font-weight: 500;
+    color: #555;
+    line-break: loose;
+    margin: 5px 0;
+  }
+
+  .product-card1 .price {
+
+    font-weight: bold;
+    font-size: larger;
+  }
+
+  .product-card1 form {
+    margin-top: 10px;
+  }
+
+  .productImg-card1 {
+    height: 100%x;
+    width: 100%;
+    border-radius: 8px;
+    padding-right: 20px;
+
+  }
+
+  .productImg-card1 img {
+    width: 100%;
+    height: 100%;
+    max-height: 440px;
+    max-width: 600px;
+  
+
+
+  }
+  .bold{
+    font-weight: 900;
+  }
+
+
+  .setButton {
+    padding: 40px;
+    
+  }
+
+  /* From Uiverse.io by niat786 */ 
+.btn {
+ border: none;
+ color: #fff;
+ background-image: linear-gradient(30deg, #0400ff, #4ce3f7);
+ border-radius: 2px;
+ background-size: 100% auto;
+ font-family: inherit;
+ font-size: 32px;
+ padding: 0.6em 1.5em;
+}
+   .btn:hover {
+    background-position: right center;
+    background-size: 200% auto;
+    -webkit-animation: pulse 2s infinite;
+    animation: pulse512 1.5s infinite;
+   }
+   
+   @keyframes pulse512 {
+    0% {
+     box-shadow: 0 0 0 0 #05bada66;
+    }
+   
+    70% {
+     box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);
+    }
+   
+    100% {
+     box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
+    }
+   }
+
+
+

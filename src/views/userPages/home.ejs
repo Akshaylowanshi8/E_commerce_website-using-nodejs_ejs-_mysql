@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>home</title>
+  </head>
+
+  <link rel="stylesheet" href="../../public/css/userPages/home.css" />
+  <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+
+  <%-include('../include/user/userNav');-%>
+  <body>
+    <div></div>
+
+    <div class="product-container">
+      <% products.forEach(product=> { %>
+      <div class="product-card">
+        <div class="productImg-card">
+          <a href="/user/viewOne/<%=product.id %>">
+            <img src="<%= product.imageUrl %>" alt="<%= product.name %>"
+          /></a>
+        </div>
+        <h3 class="product-name"><%= product.name %></h3>
+        <p>Brand: <%= product.brandName %></p>
+
+        <div class="setButton m-2">
+          <p class="price">₹<%= product.price %></p>
+          <form action="/user/addtocart" method="post">
+            <input type="hidden" name="productId" value="<%= product.id %>" />
+            <button type="submit" class="btn btn-primary">Add to Cart</button>
+          </form>
+        </div>
+      </div>
+      <% }); %>
+    </div>
+
+    <script>
+      function vanish() {
+        $('#myAlert').fadeOut('fast')
+      }
+
+      $('#close').click(vanish)
+
+      $(document).ready(function () {
+        setTimeout(function () {
+          vanish()
+        }, 3000)
+      })
+    </script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const productNameElement = document.querySelectorAll('.product-name')
+        // console.log(productNameElement);
+        productNameElement.forEach((value, index, array) => {
+          const maxWords = 4
+          const text = value.innerText
+          const words = text.split(/\s+/)
+          if (words.length > maxWords) {
+            const truncated = words.slice(0, maxWords).join(' ') + '...'
+            value.innerText = truncated
+          }
+        })
+        console.log(value)
+      })
+    </script>
+
+    <%-include('../include/user/footer.ejs');-%>
+  </body>
+</html>

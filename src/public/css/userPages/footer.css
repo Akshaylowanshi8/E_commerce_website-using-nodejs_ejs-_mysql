@@ -1,0 +1,69 @@
+/* General footer styling */
+footer {
+    background-color: #f8f9fa; /* Light gray background */
+    padding: 40px 20px;
+    font-size: 14px;
+    color: #333; /* Dark text color for readability */
+    border-top: 1px solid #e5e5e5; /* Light gray border at the top */
+}
+
+/* Container for the footer content */
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+/* Footer section headings */
+.footer-section {
+    flex: 1;
+    margin: 0 20px;
+    min-width: 200px;
+}
+
+.footer-section h2 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #007bff; /* Primary color for headings */
+}
+
+/* Links styling */
+.footer-section a {
+    color: #007bff; /* Link color */
+    text-decoration: none;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.footer-section a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+/* Additional footer styling */
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #666; /* Lighter text color for footer bottom */
+}
+
+.footer-bottom a {
+    color: #007bff; /* Link color */
+}
+
+.footer-bottom a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+    }
+
+    .footer-section {
+        margin: 10px 0;
+    }
+}

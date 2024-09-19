@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>women</title>
+</head>
+<link rel="stylesheet" href="../../public/css/userPages/women.css">
+<link rel="stylesheet" href="../../public/css/userPages/home.css">
+<style>
+   
+</style>
+<%-include('../include/user/userNav');-%>
+
+<body>
+    
+  <div>
+  </div>
+  <div class="product-container">
+    <% products.forEach(product=> { %>
+      <div class="product-card">
+        <div class="productImg-card">
+          <a href="/user/viewOne/<%=product.id %>">
+            <img src="<%= product.imageUrl %>" alt="<%= product.name %>"
+          /></a>
+        </div>
+        <h3 class="product-name"><%= product.name %></h3>
+        <p>Brand: <%= product.brandName %></p>
+
+        <div class="setButton m-2">
+          <p class="price">₹<%= product.price %></p>
+          <form action="/user/addtocart" method="post">
+            <input type="hidden" name="productId" value="<%= product.id %>" />
+            <button type="submit" class="btn btn-primary">Add to Cart</button>
+          </form>
+        </div>
+      </div>
+      <% }); %>
+     
+  </div>
+  <div class="pagination">
+    <% if (currentPage > 1) { %>
+      <a href="/user/wonenProduct?page=<%= currentPage - 1 %>&limit=<%= limit %>">Previous</a>
+    <% } else { %>
+      <span class="disabled">Previous</span>
+    <% } %>
+
+    <% if (currentPage < totalPages) { %>
+      <a href="/user/wonenProduct?page=<%= currentPage + 1 %>&limit=<%= limit %>">Next</a>
+    <% } else { %>
+      <span class="disabled">Next</span>
+    <% } %>
+  </div>
+   
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const productNameElement = document.querySelectorAll('.product-name');
+      console.log(productNameElement);
+
+      productNameElement.forEach((value, index, array) => {
+
+        const maxWords = 4;
+        const text = value.innerText;
+
+        const words = text.split(/\s+/);
+        if (words.length > maxWords) {
+          const truncated = words.slice(0, maxWords).join(' ') + '...';
+          value.innerText = truncated;
+        }
+      });
+      console.log(value);
+    })
+
+  </script>
+<%-include('../include/user/footer.ejs');-%>
+
+</body>
+
+
+</html>

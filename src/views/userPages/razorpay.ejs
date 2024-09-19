@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Razorpay Payment</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <h1>Razorpay Payment</h1>
+    <form id="paymentForm">
+        <label for="amount">Amount (in INR):</label>
+        <input type="number" id="amount" name="amount" required>
+        <button type="submit">Pay Now</button>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('paymentForm');
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                console.log('Form submitted');
+
+                const amount = document.getElementById('amount').value;
+                console.log('Amount:', amount);
+
+                const response = await fetch('/user/createOrder', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ amount }),
+                });
+
+                const orderData = await response.json();
+                console.log('Order Data:', orderData);
+
+                if (!orderData.id) {
+                    alert('Failed to create order. Please try again.');
+                    return;
+                }
+
+                const options = {
+                    key: '<%= process.env.KEY_ID %>', // Ensure this matches your environment variable
+                    amount: orderData.amount,
+                    currency: orderData.currency,
+                    name: 'Your Company Name',
+                    description: 'Test Transaction',
+                    order_id: orderData.id,
+                    handler: function (response) {
+                        alert('Payment Successful: ' + response.razorpay_payment_id);
+                    },
+                    prefill: {
+                        name: 'Customer Name',
+                        email: 'customer@example.com',
+                        contact: '9999999999',
+                    },
+                    theme: {
+                        color: '#F37254',
+                    },
+                };
+
+                const razorpayCheckout = new Razorpay(options);
+                razorpayCheckout.open();
+            });
+        });
+    </script>
+</body>
+</html>

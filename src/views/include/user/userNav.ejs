@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/7.4.0/ionicons.min.css" />
+  <link rel="stylesheet" href="../../../public/css/userPages/userNav.css" />
+  <link rel="stylesheet" href="../../../public/css/userPages/home.css" />
+  <link rel="stylesheet" href="../../../public/css/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ionicons/7.4.0/esm/ionicons.min.js" integrity="sha512-heZj7rPbZHWyOEhE34vsJkzj2DKK2mZ9D3jjMkXQJ0uMGu/m5iOty+le26NL1eFZ5+qa4XBYcflwYwITwCWufw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+  <div class="container">
+    <% if (message && message.text) { %>
+    <div class="alert-custom <%= message.type %>" id="myAlert">
+      <div><%= message.text %></div>
+      <button class="close-btn" id="close">&times;</button>
+    </div>
+    <% } %>
+  </div>
+
+  <script>
+    // Function to vanish alert
+    function vanish() {
+      $('#myAlert').fadeOut('fast')
+    }
+
+    // Close button click event
+    $('#close').click(vanish)
+
+    // Auto hide alert after 3 seconds
+    $(document).ready(function () {
+      setTimeout(vanish, 3000)
+    })
+
+    // Function to get cookie value by name
+    function getCookie(name) {
+      let value = '; ' + document.cookie
+      let parts = value.split('; ' + name + '=')
+      if (parts.length === 2) return parts.pop().split(';').shift()
+      return null
+    }
+
+    // Check for token and update nav links
+    function updateNavLinks() {
+      const token = getCookie('Usertoken')
+      const loginLink = document.getElementById('login-link')
+      const logoutLink = document.getElementById('logout-link')
+      const userName = document.getElementById('userName')
+      if (loginLink && logoutLink) {
+        if (token) {
+          try {
+            const decoded = jwt_decode(token)
+            console.log('Decoded token:', decoded)
+
+            // Show Logout link
+            logoutLink.style.display = 'block'
+            // Hide Login link
+            loginLink.style.display = 'none'
+
+            userName.innerText = decoded.name
+          } catch (error) {
+            console.error('Error decoding token:', error)
+            // Hide Logout link if token is invalid
+            logoutLink.style.display = 'none'
+            // Show Login link
+            loginLink.style.display = 'block'
+          }
+        } else {
+          // Hide Logout link
+          logoutLink.style.display = 'none'
+          // Show Login link
+          loginLink.style.display = 'block'
+        }
+      }
+    }
+
+    // Update nav links on page load
+    $(document).ready(function () {
+      updateNavLinks()
+    })
+  </script>
+
+  <div class="box"></div>
+  <nav class="nav-container">
+    <div style="display: flex; justify-content: end">
+      <ul class="nav-list">
+        <!-- Navbar items -->
+        <li class="nav-item">
+          <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+            <div class="nav-link-container">
+              <ion-icon name="albums-outline" class="nav-icon"></ion-icon>
+              <span>My Order</span>
+            </div>
+          </a>
+        </li>
+        <li id="login-link">
+          <a class="nav-link" data-widget="navbar-search" href="/user/loginUser" role="button">
+            <div class="nav-link-container">
+              <ion-icon name="person-outline" class="nav-icon"></ion-icon>
+              <span>Login</span>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a class="nav-link" data-widget="navbar-search" href="/user/shop" role="button">
+            <div class="nav-link-container" style="position: relative;">
+              <ion-icon name="bag-handle-outline" class="nav-icon"></ion-icon>
+              <span>Shop</span>
+            </div>
+          </a>
+        </li>
+        <li id="logout-link" style="display: none;">
+          <a class="nav-link" data-widget="navbar-search" href="/user/logout" role="button">
+            <div class="nav-link-container">
+              <ion-icon name="person-outline" class="nav-icon"></ion-icon>
+              <div class="user-info">
+                <span>Logout</span>   </a>
+                <span style="color: chocolate;" id="userName"></span>
+              </div>
+            </div>
+       
+        </li>
+      </ul>
+    </div>
+    <div id="nav">
+      <ul class="nav-menu">
+        <li><a href="/user/home">New</a></li>
+        <li><a href="/user/menProduct">Men</a></li>
+        <li><a href="/user/womenProduct">Women</a></li>
+        <li><a href="/user/kidsProduct">Kids</a></li>
+        <li>Collections</li>
+      </ul>
+    </div>
+  </nav>
+</body>
+</html>

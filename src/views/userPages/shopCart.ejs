@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart</title>
+  <link rel="stylesheet" href="../../public/css/userPages/shopCart.css">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+</head>
+
+<body>
+  <%-include('../include/user/userNav');-%>
+
+
+
+    <div class="shopping-cart" style="margin-top: 80px;">
+
+      <label class="product-image">Image</label>
+      <label class="product-details">Product</label>
+      <label class="product-price">Price</label>
+      <label class="product-quantity">Quantity</label>
+      <label class="product-removal">Remove</label>
+      <label class="product-line-price">Total</label>
+    </div>
+    <% let total =0;
+      %>
+      <% products.forEach(product=> { %>
+        <div class="product">
+          <div class="product-image">
+
+            <img src="<%= product.Product.imageUrl %>" alt="<%= product.Product.name %>">
+          </div>
+          <div class="product-details">
+            <div class="product-title">
+              <%= product.Product.name %>
+            </div>
+            <p class="product-description">
+              <%= product.Product.description %>
+            </p>
+          </div>
+          <div class="product-price">₹<%= product.Product.price %>
+          </div>
+          <%= product.Product.quantity %>
+            <div class="product-quantity">
+
+               <a href="/user/quantityInc/<%=product.id %>" >+</a>  <p><%=product.quantity %> </p> <a href="/user/quantityDec/<%=product.id %>">-</a>
+            </div>
+            <div class="product-removal">
+              <a href="/user/removeProduct/<%=product.Product.id %>">
+                <button class="remove-product">Remove</button>
+              </a>
+            </div>
+            <% 
+            const price=product.Product.price; 
+            const quantity=product.quantity;
+             const carttotal=(price * quantity);
+              total+=carttotal;
+              %>
+              <div class="product-line-price">₹<%= carttotal %>
+              </div>
+        </div>
+        </div>
+        <% }); %>
+          <div class="cart">
+            <div class="totals">
+              <div class="totals-item">
+                <label for="cart-subtotal">Subtotal</label>
+                <div class="totals-value" id="cart-subtotal">₹<%= total.toFixed(2) %>
+                </div>
+              </div>
+              <div class="totals-item">
+                <label for="cart-shipping">Shipping</label>
+                <div class="totals-value" id="cart-shipping">₹15.00</div>
+              </div>
+              <div class="totals-item totals-item-total">
+                <label for="cart-total">Grand Total</label>
+
+                <form action="" id="paymentForm"  >
+                <div class="totals-value" id="cart-total">
+                  ₹<%= total+15%>
+
+                  <input hidden type="number" id="amount" value="<%= total+15%>" name="amount" required>
+                </div>
+              </div>
+            </div>
+            <button class="checkout" type="submit"> Checkout </button>
+          </div>
+          </div>
+</form>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('paymentForm');
+      form.addEventListener('submit', async (event) => {
+          event.preventDefault();
+          console.log('Form submitted');
+
+          const amount = document.getElementById('amount').value;
+          console.log('Amount:', amount);
+
+          const response = await fetch('/user/createOrder', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ amount , }),
+          });
+
+          const orderData = await response.json();
+          console.log('Order Data:', orderData);
+
+          if (!orderData.id) {
+              alert('Failed to create order. Please try again.');
+              return;
+          }
+
+          const options = {
+              key: '<%= process.env.KEY_ID %>', // Ensure this matches your environment variable
+              amount: orderData.amount,
+              currency: orderData.currency,
+              name: 'Your Company Name',
+              description: 'Test Transaction',
+              order_id: orderData.id,
+              handler: function (response) {
+                  alert('Payment Successful: ' + response.razorpay_payment_id);
+
+
+                  
+              },
+              prefill: {
+                  name: name ,
+                  email: 'customer@example.com',
+                  contact: '9999999999',
+              },
+              theme: {
+                  color: '#5c2298',
+              },
+          };
+
+          const razorpayCheckout = new Razorpay(options);
+          razorpayCheckout.open();
+      });
+  });
+</script>
+
+</body>
+
+</html>
